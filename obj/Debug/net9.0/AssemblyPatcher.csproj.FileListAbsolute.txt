@@ -1,0 +1,17 @@
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/bin/Debug/net9.0/AssemblyPatcher
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/bin/Debug/net9.0/AssemblyPatcher.deps.json
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/bin/Debug/net9.0/AssemblyPatcher.runtimeconfig.json
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/bin/Debug/net9.0/AssemblyPatcher.dll
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/bin/Debug/net9.0/AssemblyPatcher.pdb
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/bin/Debug/net9.0/dnlib.dll
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/AssemblyPatcher.csproj.AssemblyReference.cache
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/AssemblyPatcher.GeneratedMSBuildEditorConfig.editorconfig
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/AssemblyPatcher.AssemblyInfoInputs.cache
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/AssemblyPatcher.AssemblyInfo.cs
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/AssemblyPatcher.csproj.CoreCompileInputs.cache
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/Assembly.AAB29DE7.Up2Date
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/AssemblyPatcher.dll
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/refint/AssemblyPatcher.dll
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/AssemblyPatcher.pdb
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/AssemblyPatcher.genruntimeconfig.cache
+/home/areymadhav/Downloads/OpenSUSETalk/dotnet/AssemblyPatcher/obj/Debug/net9.0/ref/AssemblyPatcher.dll
