@@ -1,0 +1,16 @@
+# .NET build output
+bin/
+obj/
+
+# Visual Studio junk
+.vs/
+*.user
+*.suo
+*.rsuser
+
+# Logs
+*.log
+
+# OS junk
+Thumbs.db
+.DS_Store
