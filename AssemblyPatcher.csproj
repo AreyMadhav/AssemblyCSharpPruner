@@ -3,8 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <AssemblyName>assemblycsharppruner</AssemblyName>
-    <RootNamespace>AssemblyCSharpPruner</RootNamespace>
+    <AssemblyName>asmc-pruner</AssemblyName>
+    <RootNamespace>AsmcPruner</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

@@ -3,73 +3,87 @@ using System.Linq;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
 using System.Collections.Generic;
+using System.IO;
 
 class Program
 {
-    static void Main()
+    static int Main(string[] args)
     {
-        Console.WriteLine("=== Unity DLL Method Pruner CLI (Linux) ===\n");
-
-        // Ask for DLL path
-        Console.Write("Enter path to Assembly-CSharp.dll: ");
-        string dllPath = Console.ReadLine()?.Trim();
-        if (string.IsNullOrEmpty(dllPath) || !System.IO.File.Exists(dllPath))
+        if (args.Length == 0 || args.Contains("--help") || args.Contains("-h"))
         {
-            Console.WriteLine("Error: DLL not found!");
-            return;
+            PrintHelp();
+            return 1;
         }
 
-        string outputPath = System.IO.Path.Combine(
-            System.IO.Path.GetDirectoryName(dllPath),
-                                                   System.IO.Path.GetFileNameWithoutExtension(dllPath) + "_pruned.dll"
+        string dllPath = args[0];
+
+        if (!File.Exists(dllPath))
+        {
+            Console.Error.WriteLine("Error: DLL not found.");
+            return 1;
+        }
+
+        Console.WriteLine("=== asmc-pruner ===\n");
+
+        string outputPath = Path.Combine(
+            Path.GetDirectoryName(dllPath)!,
+            Path.GetFileNameWithoutExtension(dllPath) + "_pruned.dll"
         );
 
-        // Load DLL
         ModuleDefMD module;
         try
         {
             module = ModuleDefMD.Load(dllPath);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Failed to load DLL: {ex.Message}");
-            return;
+            Console.Error.WriteLine($"Failed to load DLL: {ex.Message}");
+            return 1;
         }
 
-        // List all classes
-        Console.WriteLine("\nClasses found:");
+        Console.WriteLine("Classes found:");
         for (int i = 0; i < module.Types.Count; i++)
         {
             Console.WriteLine($"{i}: {module.Types[i].Name}");
         }
 
-        // Select class
         Console.Write("\nSelect class index to inspect: ");
-        if(!int.TryParse(Console.ReadLine(), out int classIndex) || classIndex < 0 || classIndex >= module.Types.Count)
+        if (!int.TryParse(Console.ReadLine(), out int classIndex) ||
+            classIndex < 0 || classIndex >= module.Types.Count)
         {
-            Console.WriteLine("Invalid class index.");
-            return;
+            Console.Error.WriteLine("Invalid class index.");
+            return 1;
         }
+
         var type = module.Types[classIndex];
 
-        // List methods
         Console.WriteLine($"\nMethods in class {type.Name}:");
-        for(int i = 0; i < type.Methods.Count; i++)
+        for (int i = 0; i < type.Methods.Count; i++)
         {
             Console.WriteLine($"{i}: {type.Methods[i].Name}");
         }
 
-        // Ask for methods to patch (comma-separated)
-        Console.Write("\nEnter method indices to clear (comma-separated, e.g. 0,2,5): ");
-        string input = Console.ReadLine();
-        var indices = input.Split(',').Select(s => int.TryParse(s.Trim(), out int val) ? val : -1).Where(x => x >= 0).ToList();
+        Console.Write("\nEnter method indices to clear (comma-separated): ");
+        string? input = Console.ReadLine();
 
-        foreach(var idx in indices)
+        if (string.IsNullOrWhiteSpace(input))
         {
-            if(idx >= 0 && idx < type.Methods.Count)
+            Console.Error.WriteLine("No methods selected.");
+            return 1;
+        }
+
+        var indices = input
+            .Split(',')
+            .Select(s => int.TryParse(s.Trim(), out int v) ? v : -1)
+            .Where(v => v >= 0)
+            .ToList();
+
+        foreach (var idx in indices)
+        {
+            if (idx >= 0 && idx < type.Methods.Count)
             {
                 var method = type.Methods[idx];
-                if(method.HasBody)
+                if (method.HasBody)
                 {
                     method.Body.Instructions.Clear();
                     method.Body.Instructions.Add(Instruction.Create(OpCodes.Ret));
@@ -82,17 +96,34 @@ class Program
             }
         }
 
-        // Save patched DLL
         try
         {
             module.Write(outputPath);
             Console.WriteLine($"\nPruned DLL saved as: {outputPath}");
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Failed to prune DLL: {ex.Message}");
+            Console.Error.WriteLine($"Failed to write DLL: {ex.Message}");
+            return 1;
         }
 
         Console.WriteLine("\n=== Pruning Complete ===");
+        return 0;
+    }
+
+    static void PrintHelp()
+    {
+        Console.WriteLine(@"
+asmc-pruner
+
+Usage:
+  asmc-pruner <path-to-Assembly-CSharp.dll>
+
+Description:
+  Interactive CLI tool for pruning methods from Unity Assembly-CSharp DLLs.
+
+Example:
+  asmc-pruner Assembly-CSharp.dll
+");
     }
 }

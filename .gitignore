@@ -14,3 +14,8 @@ obj/
 # OS junk
 Thumbs.db
 .DS_Store
+
+# Packaging / release artifacts
+publish/
+*.tar.gz
+*.spec

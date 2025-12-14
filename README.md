@@ -1,7 +1,7 @@
-# AssemblyCSharpPruner
+# asmc-pruner
 
-AssemblyCSharpPruner is a command-line tool for analyzing and pruning Unity
-`Assembly-CSharp.dll` binaries.
+asmc-pruner is a command-line tool for pruning methods from compiled
+Assembly-CSharp (.NET) binaries, commonly found in Unity-based applications.
 
 It is designed to help reverse engineers, modders, and security researchers
 reduce noise in Unity assemblies by identifying and removing unused or
